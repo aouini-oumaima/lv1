@@ -1,0 +1,426 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LV1 Health - RFQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .rfq-section {
+      background: #f0f2f5;
+      min-height: calc(100vh - 300px);
+      padding: 60px 0 80px;
+    }
+    .rfq-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── FORM CARD ── */
+    .rfq-form-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e5e9f0;
+      padding: 40px;
+    }
+    .rfq-form-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1a2540;
+      margin: 0 0 6px;
+    }
+    .rfq-form-sub {
+      font-size: 0.85rem;
+      color: #888;
+      margin: 0 0 32px;
+    }
+    .rfq-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .rfq-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .rfq-field.full { grid-column: 1 / -1; }
+    .rfq-field label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #444;
+      letter-spacing: 0.4px;
+    }
+    .rfq-field input,
+    .rfq-field select,
+    .rfq-field textarea {
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: #1a2540;
+      background: #f8f9fb;
+      border: 1px solid #dde3ed;
+      border-radius: 8px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .rfq-field input:focus,
+    .rfq-field select:focus,
+    .rfq-field textarea:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+    .rfq-field textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+    .rfq-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 6px;
+    }
+    .rfq-submit:hover {
+      background: #1fa0c4;
+      transform: translateY(-1px);
+    }
+
+    /* ── SIDEBAR ── */
+    .rfq-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .rfq-info-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e5e9f0;
+      padding: 28px;
+    }
+    .rfq-info-card h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #1a2540;
+      margin: 0 0 16px;
+    }
+    .rfq-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .rfq-step:last-child { margin-bottom: 0; }
+    .rfq-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .rfq-step-text strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1a2540;
+      margin-bottom: 2px;
+    }
+    .rfq-step-text span {
+      font-size: 0.76rem;
+      color: #888;
+      line-height: 1.5;
+    }
+    .rfq-contact-card {
+      background: linear-gradient(135deg, #0f1b30, #1a2e50);
+      border-radius: 16px;
+      padding: 28px;
+      color: #fff;
+    }
+    .rfq-contact-card h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin: 0 0 14px;
+    }
+    .rfq-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      color: #a0b4c8;
+    }
+    .rfq-contact-item svg { color: var(--accent); flex-shrink: 0; }
+    .rfq-contact-item:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="container top-row">
+      <div class="brand"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+      <div class="search-wrap">
+        <input type="text" aria-label="Recherche" placeholder="Rechercher un produit, une marque...">
+        <button type="button" aria-label="Lancer la recherche">&#128269;</button>
+      </div>
+      <div class="header-actions">
+        <span class="lang">Français</span>
+        <span class="expo">MY MEDICALEXPO</span>
+        <button class="cta-btn" type="button">DEVENIR EXPOSANT</button>
+      </div>
+    </div>
+    <nav class="container main-nav" aria-label="Navigation principale">
+      <a href="societe.html">SOCI&#201;T&#201;</a>
+      <a href="produits-company.html">PRODUITS</a>
+      <a href="catalogues.html">CATALOGUES</a>
+      <a class="active" href="rfq.html">RFQ</a>
+      <a href="news-trends.html">NEWS &amp; TRENDS</a>
+      <a href="e-magazine.html">E-MAGAZINE</a>
+    </nav>
+  </header>
+
+  <section class="rfq-section">
+    <div class="container rfq-layout">
+
+      <!-- FORM -->
+      <div class="rfq-form-card">
+        <h2 class="rfq-form-title">Demande de devis</h2>
+        <p class="rfq-form-sub">Remplissez le formulaire ci-dessous et notre équipe vous répondra sous 24h.</p>
+
+        <form>
+          <div class="rfq-row">
+            <div class="rfq-field">
+              <label for="rfq-prenom">Prénom *</label>
+              <input type="text" id="rfq-prenom" placeholder="Jean">
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-nom">Nom *</label>
+              <input type="text" id="rfq-nom" placeholder="Dupont">
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-email">Email professionnel *</label>
+              <input type="email" id="rfq-email" placeholder="jean.dupont@hopital.fr">
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-tel">Téléphone</label>
+              <input type="tel" id="rfq-tel" placeholder="+33 6 00 00 00 00">
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-etablissement">Établissement *</label>
+              <input type="text" id="rfq-etablissement" placeholder="Hôpital / Clinique / Cabinet">
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-pays">Pays *</label>
+              <select id="rfq-pays">
+                <option value="">Sélectionner...</option>
+                <option>France</option>
+                <option>Tunisie</option>
+                <option>Belgique</option>
+                <option>Suisse</option>
+                <option>Maroc</option>
+                <option>Algérie</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-produit">Produit concerné *</label>
+              <select id="rfq-produit">
+                <option value="">Sélectionner un modèle...</option>
+                <option>Clarius L7 HD3 — Sonde linéaire MSK</option>
+                <option>Clarius L15 HD3 — Sonde per-opératoire</option>
+                <option>Clarius PA HD3 — Urgentiste</option>
+                <option>Clarius L20 HD3 — Sonde cutanée</option>
+                <option>Clarius C3 HD3 — Sonde convexe polyvalente</option>
+                <option>Clarius PA HD3 — Full Body</option>
+                <option>Clarius EC7 HD3 — Sonde endocavitaire</option>
+                <option>Clarius C7 HD3 Vet — Vétérinaire</option>
+                <option>Je ne sais pas encore</option>
+              </select>
+            </div>
+            <div class="rfq-field">
+              <label for="rfq-quantite">Quantité estimée</label>
+              <select id="rfq-quantite">
+                <option value="">Sélectionner...</option>
+                <option>1 unité</option>
+                <option>2 – 5 unités</option>
+                <option>6 – 20 unités</option>
+                <option>20+ unités</option>
+              </select>
+            </div>
+            <div class="rfq-field full">
+              <label for="rfq-message">Message / Besoins spécifiques</label>
+              <textarea id="rfq-message" placeholder="Décrivez votre contexte clinique, vos spécialités, vos questions..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="rfq-submit">ENVOYER LA DEMANDE</button>
+        </form>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="rfq-sidebar">
+
+        <div class="rfq-info-card">
+          <h4>Comment ça fonctionne ?</h4>
+          <div class="rfq-step">
+            <div class="rfq-step-num">1</div>
+            <div class="rfq-step-text">
+              <strong>Soumettez votre demande</strong>
+              <span>Remplissez le formulaire avec vos besoins et vos coordonnées.</span>
+            </div>
+          </div>
+          <div class="rfq-step">
+            <div class="rfq-step-num">2</div>
+            <div class="rfq-step-text">
+              <strong>Analyse par notre équipe</strong>
+              <span>Un expert LV1 Health étudie votre profil et votre contexte clinique.</span>
+            </div>
+          </div>
+          <div class="rfq-step">
+            <div class="rfq-step-num">3</div>
+            <div class="rfq-step-text">
+              <strong>Proposition personnalisée</strong>
+              <span>Vous recevez un devis adapté sous 24h ouvrées.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rfq-contact-card">
+          <h4>Nous contacter directement</h4>
+          <div class="rfq-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            0021627690338
+          </div>
+          <div class="rfq-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            contact3@lv1-health.com
+          </div>
+          <div class="rfq-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            56 avenue de carthage 1001 Tunis, Tunisia
+          </div>
+          <div class="rfq-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Lun – Ven, 9h – 18h
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-text"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+        <p class="footer-tagline">Imagerie medicale haute performance accessible a chaque clinicien.</p><div class="footer-divider"></div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact</h4>
+        <div class="footer-links">
+          <a href="tel:0021627690338">0021627690338</a>
+          <a href="mailto:contact3@lv1-health.com">contact3@lv1-health.com</a>
+          <span style="color:#9aa5b4;font-size:0.78rem;line-height:1.6;">56 avenue de carthage<br>1001 Tunis, Tunisia</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Suivez LV1</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/share/1P1c8GnVzF/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/clarius_tunisie?igsh=MXQ4NW41aW0zbHMxaQ==" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.linkedin.com/company/clarius-mobile-health-tunisie/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://www.tiktok.com/@clarius.tunisie?_r=1&amp;_t=ZS-95MtgF3DZhq" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container"><span>&copy; 2026 LV1 Health Tech. Tous droits reserves.</span></div></div>
+  </footer>
+  <!-- SUCCESS OVERLAY -->
+  <div id="rfqSuccess" style="display:none;position:fixed;inset:0;background:rgba(10,20,40,0.7);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:20px;padding:48px 40px;max-width:420px;width:90%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.25);">
+      <div style="width:64px;height:64px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 style="font-size:1.3rem;font-weight:800;color:#1a2540;margin:0 0 10px;">Demande envoyée !</h3>
+      <p style="font-size:0.88rem;color:#5a6a7a;line-height:1.7;margin:0 0 28px;">Notre équipe vous répondra sous 24h à l'adresse indiquée.</p>
+      <button onclick="document.getElementById('rfqSuccess').style.display='none'" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 32px;font-family:inherit;font-size:0.88rem;font-weight:700;cursor:pointer;">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    // Pre-fill product from URL param
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const p = params.get('produit');
+      if (p) {
+        const sel = document.getElementById('rfq-produit');
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].text.toLowerCase().includes(p.toLowerCase())) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    })();
+
+    // Form submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const prenom = document.getElementById('rfq-prenom').value.trim();
+      const nom    = document.getElementById('rfq-nom').value.trim();
+      const email  = document.getElementById('rfq-email').value.trim();
+      const etab   = document.getElementById('rfq-etablissement').value.trim();
+      const pays   = document.getElementById('rfq-pays').value;
+      const produit= document.getElementById('rfq-produit').value;
+
+      if (!prenom || !nom || !email || !etab || !pays || !produit) {
+        alert('Merci de remplir tous les champs obligatoires (*).');
+        return;
+      }
+
+      const tel      = document.getElementById('rfq-tel').value.trim();
+      const quantite = document.getElementById('rfq-quantite').value;
+      const message  = document.getElementById('rfq-message').value.trim();
+
+      const subject = encodeURIComponent('Demande de devis — ' + produit);
+      const body = encodeURIComponent(
+        'Prénom : ' + prenom + '\n' +
+        'Nom : ' + nom + '\n' +
+        'Email : ' + email + '\n' +
+        (tel ? 'Téléphone : ' + tel + '\n' : '') +
+        'Établissement : ' + etab + '\n' +
+        'Pays : ' + pays + '\n' +
+        'Produit : ' + produit + '\n' +
+        (quantite ? 'Quantité : ' + quantite + '\n' : '') +
+        (message ? '\nMessage :\n' + message : '')
+      );
+
+      window.location.href = 'mailto:contact3@lv1-health.com?subject=' + subject + '&body=' + body;
+
+      setTimeout(function() {
+        document.getElementById('rfqSuccess').style.display = 'flex';
+        document.querySelector('form').reset();
+      }, 500);
+    });
+  </script>
+  <script src="search.js"></script>
+</body>
+</html>

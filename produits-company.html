@@ -1,0 +1,1010 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LV1 Health - Produits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .prod-body { background: #f0f2f5; }
+
+    /* ── HERO ── */
+    .prod-hero {
+      background: linear-gradient(120deg, #080d18 0%, #0f1b30 55%, #080d18 100%);
+      padding: 56px 0 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    .prod-hero::before {
+      content: '';
+      position: absolute;
+      right: 0; top: -100px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(39,178,217,0.09), transparent 60%);
+      pointer-events: none;
+    }
+    .prod-hero::after {
+      content: '';
+      position: absolute;
+      left: -60px; bottom: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,155,63,0.07), transparent 65%);
+      pointer-events: none;
+    }
+    .prod-hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 48px;
+    }
+    .prod-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: #4a6070;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .prod-breadcrumb a { color: #4a6070; text-decoration: none; }
+    .prod-breadcrumb a:hover { color: var(--accent); }
+    .prod-breadcrumb span { color: var(--accent); }
+    .prod-hero-title {
+      font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.12;
+      margin: 0 0 14px;
+      letter-spacing: -0.5px;
+    }
+    .prod-hero-title em { font-style: normal; color: var(--accent); }
+    .prod-hero-sub {
+      font-size: 0.92rem;
+      color: #6a8090;
+      line-height: 1.7;
+      margin: 0 0 28px;
+      max-width: 560px;
+    }
+    .prod-hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .prod-hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      color: #a0b4c8;
+      font-weight: 600;
+    }
+    .prod-hero-badge svg { color: var(--accent); }
+    .prod-hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+    .prod-stat-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 16px 24px;
+      text-align: center;
+      min-width: 110px;
+    }
+    .prod-stat-num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .prod-stat-label {
+      font-size: 0.65rem;
+      color: #4a6070;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    /* ── COMPANY TABS STRIP ── */
+    .prod-tabs-strip {
+      background: #fff;
+      border-bottom: 1px solid #e5e9f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .prod-tabs-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .prod-tabs-inner::-webkit-scrollbar { display: none; }
+    .prod-tab {
+      flex-shrink: 0;
+      padding: 15px 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #7a8898;
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: color 180ms ease, border-color 180ms ease;
+      letter-spacing: 0.3px;
+    }
+    .prod-tab:hover { color: #1a1f2e; }
+    .prod-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .prod-tab-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 20px;
+      padding: 10px 20px 10px 0;
+      border-right: 1px solid #e5e9f0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1a1f2e;
+      flex-shrink: 0;
+    }
+    .prod-tab-logo-circle {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-orange);
+      color: var(--accent-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    /* ── FILTER BAR ── */
+    .prod-filter-bar {
+      background: #fff;
+      border-bottom: 1px solid #eef0f5;
+      padding: 0;
+    }
+    .prod-filter-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .prod-filter-inner::-webkit-scrollbar { display: none; }
+    .prod-filter-btn {
+      flex-shrink: 0;
+      padding: 13px 18px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #7a8898;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+    .prod-filter-btn:hover { color: #1a1f2e; }
+    .prod-filter-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── MAIN ── */
+    .prod-main { padding: 44px 0 64px; }
+    .prod-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .prod-sidebar { position: sticky; top: 100px; }
+    .prod-sidebar-card {
+      background: #fff;
+      border-radius: 13px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-bottom: 14px;
+    }
+    .prod-sidebar-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a1f2e;
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eef0f5;
+    }
+    .prod-filter-list { display: flex; flex-direction: column; gap: 5px; }
+    .prod-filter-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.8rem;
+      color: #4a5568;
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 7px;
+      transition: background 160ms ease;
+      font-weight: 500;
+    }
+    .prod-filter-item:hover { background: #f4f6fa; }
+    .prod-filter-item input { accent-color: var(--accent); width: 14px; height: 14px; }
+    .prod-filter-count {
+      margin-left: auto;
+      font-size: 0.65rem;
+      background: #eef0f5;
+      color: #8090a4;
+      padding: 2px 6px;
+      border-radius: 9px;
+      font-weight: 600;
+    }
+    .prod-rfq-card {
+      background: linear-gradient(135deg, #0f1b30, #0d2240);
+      border-radius: 13px;
+      padding: 20px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .prod-rfq-card::before {
+      content: '';
+      position: absolute;
+      right: -20px; top: -20px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(39,178,217,0.12), transparent 70%);
+    }
+    .prod-rfq-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 8px;
+      position: relative;
+    }
+    .prod-rfq-sub {
+      font-size: 0.74rem;
+      color: #6a8099;
+      line-height: 1.55;
+      margin: 0 0 16px;
+      position: relative;
+    }
+    .prod-rfq-btn {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      position: relative;
+      transition: background 180ms ease;
+    }
+    .prod-rfq-btn:hover { background: #1fa0c4; }
+
+    /* ── PRODUCT CARDS ── */
+    .prod-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .prod-results-count {
+      font-size: 0.82rem;
+      color: #6a7888;
+      font-weight: 600;
+    }
+    .prod-results-count strong { color: #1a1f2e; }
+    .prod-sort {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: #6a7888;
+    }
+    .prod-sort select {
+      padding: 7px 12px;
+      border: 1px solid #e0e5ec;
+      border-radius: 7px;
+      font-size: 0.76rem;
+      color: #2d3748;
+      background: #fff;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    /* FEATURED — spans 2 cols */
+    .prod-card-featured {
+      grid-column: span 2;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 220ms ease, transform 220ms ease;
+    }
+    .prod-card-featured:hover {
+      box-shadow: 0 14px 40px rgba(0,0,0,0.11);
+      transform: translateY(-3px);
+    }
+    .prod-card-featured .prod-card-img-wrap { height: 100%; min-height: 280px; }
+
+    .prod-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 220ms ease, transform 220ms ease;
+    }
+    .prod-card:hover {
+      box-shadow: 0 12px 34px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    .prod-card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: #f4f6fa;
+    }
+    .prod-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 400ms ease;
+    }
+    .prod-card-featured .prod-card-img { height: 100%; }
+    .prod-card:hover .prod-card-img,
+    .prod-card-featured:hover .prod-card-img { transform: scale(1.04); }
+    .prod-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #fff;
+    }
+    .prod-badge.new { background: var(--accent); }
+    .prod-badge.top { background: var(--accent-orange); }
+    .prod-badge.pro { background: #2d3748; }
+    .prod-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(8,18,32,0.65) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 250ms ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .prod-card:hover .prod-overlay,
+    .prod-card-featured:hover .prod-overlay { opacity: 1; }
+    .prod-overlay-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: #0f1520;
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    .prod-card-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+    }
+    .prod-card-featured .prod-card-body { padding: 32px 34px; }
+    .prod-card-cat {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .prod-card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f1520;
+      line-height: 1.35;
+      margin: 0 0 6px;
+    }
+    .prod-card-featured .prod-card-name { font-size: 1.35rem; margin-bottom: 10px; }
+    .prod-card-ref {
+      font-size: 0.72rem;
+      color: #8090a4;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .prod-card-desc {
+      font-size: 0.84rem;
+      color: #5a6a7e;
+      line-height: 1.65;
+      margin: 0 0 18px;
+    }
+    .prod-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 16px;
+      flex: 1;
+      align-content: flex-start;
+    }
+    .prod-tag {
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: #eef2f7;
+      color: #4a6078;
+    }
+    .prod-card-ft {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #eef0f5;
+      gap: 10px;
+    }
+    .prod-card-cta {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 160ms ease;
+    }
+    .prod-card:hover .prod-card-cta,
+    .prod-card-featured:hover .prod-card-cta { gap: 8px; }
+    .prod-card-actions { display: flex; gap: 6px; }
+    .prod-icon-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid #e0e5ec;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8090a4;
+      cursor: pointer;
+      transition: all 160ms ease;
+    }
+    .prod-card:hover .prod-icon-btn,
+    .prod-card-featured:hover .prod-icon-btn {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(39,178,217,0.05);
+    }
+
+    /* ── CTA BANNER ── */
+    .prod-cta-banner {
+      background: linear-gradient(135deg, #0f1b30, #0a1628);
+      border-radius: 16px;
+      padding: 44px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .prod-cta-banner::before {
+      content: '';
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(39,178,217,0.1), transparent 65%);
+    }
+    .prod-cta-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 8px;
+      position: relative;
+    }
+    .prod-cta-sub {
+      font-size: 0.86rem;
+      color: #5a7590;
+      margin: 0;
+      position: relative;
+    }
+    .prod-cta-btns {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .btn-primary-lg {
+      padding: 13px 26px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease;
+      white-space: nowrap;
+    }
+    .btn-primary-lg:hover { background: #1fa0c4; transform: translateY(-1px); }
+    .btn-outline-lg {
+      padding: 13px 26px;
+      background: transparent;
+      color: #a0b4c8;
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor: pointer;
+      transition: border-color 180ms ease, color 180ms ease;
+      white-space: nowrap;
+    }
+    .btn-outline-lg:hover { border-color: var(--accent); color: var(--accent); }
+
+    @media (max-width: 1024px) {
+      .prod-layout { grid-template-columns: 1fr; }
+      .prod-sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .prod-grid { grid-template-columns: repeat(2, 1fr); }
+      .prod-card-featured { grid-column: span 2; grid-template-columns: 1fr; }
+      .prod-card-featured .prod-card-img { height: 240px; }
+      .prod-hero-inner { grid-template-columns: 1fr; }
+      .prod-hero-right { flex-direction: row; }
+      .prod-cta-banner { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+    }
+    @media (max-width: 640px) {
+      .prod-grid { grid-template-columns: 1fr; }
+      .prod-card-featured { grid-column: span 1; }
+      .prod-sidebar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="prod-body">
+  <header class="top-header">
+    <div class="container top-row">
+      <div class="brand"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+      <div class="search-wrap"><input type="text" id="prod-search-input" aria-label="Recherche" placeholder="Rechercher un produit, une marque..."><button type="button" aria-label="Lancer la recherche">&#128269;</button></div>
+      <div class="header-actions"><span class="lang">Français</span><span class="expo">MY MEDICALEXPO</span><button class="cta-btn" type="button">DEVENIR EXPOSANT</button></div>
+    </div>
+    <nav class="container main-nav" aria-label="Navigation principale">
+      <a href="societe.html">SOCI&#201;T&#201;</a><a class="active" href="produits-company.html">PRODUITS</a><a href="catalogues.html">CATALOGUES</a><a href="rfq.html">RFQ</a><a href="news-trends.html">NEWS &amp; TRENDS</a><a href="e-magazine.html">E-MAGAZINE</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div style="background:#fff; border-bottom:1px solid #e5e9f0; padding:24px 0 20px;">
+    <div class="container">
+      <div class="prod-breadcrumb" style="margin-bottom:14px;">
+        <a href="societe.html">Accueil</a>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <a href="societe.html">LV1 Health</a>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Produits</span>
+      </div>
+      <h1 style="font-size:1.5rem;font-weight:800;color:#1a2540;margin:0 0 6px;">Gamme échographes sans fil LV1 Health Tech</h1>
+      <p style="font-size:0.85rem;color:#7a8799;margin:0 0 16px;max-width:620px;">Des sondes intelligentes conçues pour chaque spécialité — urgences, MSK, gynécologie, cardiologie et médecine vétérinaire.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="prod-hero-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Certifié CE &amp; ISO 13485
+        </span>
+        <span class="prod-hero-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Livraison 48h
+        </span>
+        <span class="prod-hero-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Support technique dédié
+        </span>
+        <span class="prod-hero-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Garantie 2 ans
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANY TABS -->
+  <div class="prod-tabs-strip">
+    <div class="container prod-tabs-inner">
+      <div class="prod-tab-logo">
+        <div class="prod-tab-logo-circle">L</div>
+        <span>lv1 health</span>
+      </div>
+      <a class="prod-tab" href="societe.html">Société</a>
+      <a class="prod-tab active" href="produits-company.html">Produits</a>
+      <a class="prod-tab" href="catalogues.html">Catalogues</a>
+      <a class="prod-tab" href="news-trends.html">News &amp; Trends</a>
+      <a class="prod-tab" href="salons.html">Salons</a>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="prod-filter-bar">
+    <div class="container prod-filter-inner">
+      <button class="prod-filter-btn active" data-cat="all">Tous les produits</button>
+      <button class="prod-filter-btn" data-cat="urgences">Urgences &amp; POCUS</button>
+      <button class="prod-filter-btn" data-cat="msk">MSK &amp; Vasculaire</button>
+      <button class="prod-filter-btn" data-cat="gynecologie">Gynécologie</button>
+      <button class="prod-filter-btn" data-cat="cardiologie">Cardiologie</button>
+      <button class="prod-filter-btn" data-cat="veterinaire">Vétérinaire</button>
+      <button class="prod-filter-btn" data-cat="cutane">Cutané</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="prod-main">
+    <div class="container prod-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="prod-sidebar">
+        <div class="prod-sidebar-card">
+          <div class="prod-sidebar-title">Technologie</div>
+          <div class="prod-filter-list">
+            <label class="prod-filter-item"><input type="checkbox" value="sans-fil"> Sonde sans fil <span class="prod-filter-count">8</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="doppler-couleur"> Doppler couleur <span class="prod-filter-count">5</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="doppler-spectral"> Doppler spectral <span class="prod-filter-count">4</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="elastographie"> Élastographie <span class="prod-filter-count">2</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="guidage"> Guidage aiguille <span class="prod-filter-count">3</span></label>
+          </div>
+        </div>
+        <div class="prod-sidebar-card">
+          <div class="prod-sidebar-title">Spécialité</div>
+          <div class="prod-filter-list">
+            <label class="prod-filter-item"><input type="checkbox" value="urgences"> Urgences <span class="prod-filter-count">2</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="msk"> MSK <span class="prod-filter-count">3</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="gynecologie"> Gynécologie <span class="prod-filter-count">2</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="veterinaire"> Vétérinaire <span class="prod-filter-count">1</span></label>
+            <label class="prod-filter-item"><input type="checkbox" value="cutane"> Cutané <span class="prod-filter-count">1</span></label>
+          </div>
+        </div>
+        <div class="prod-rfq-card">
+          <div class="prod-rfq-title">Demande de devis</div>
+          <div class="prod-rfq-sub">Vous avez un besoin spécifique ? Contactez notre équipe commerciale pour un devis personnalisé.</div>
+          <a href="rfq.html" class="prod-rfq-btn">Envoyer une demande RFQ &#8594;</a>
+        </div>
+      </aside>
+
+      <!-- PRODUCT CONTENT -->
+      <div>
+        <div class="prod-toolbar">
+          <div class="prod-results-count"><strong>8</strong> produits disponibles</div>
+          <div class="prod-sort">
+            <span>Trier par</span>
+            <select><option>Pertinence</option><option>Nouveautés</option><option>Nom A–Z</option></select>
+          </div>
+        </div>
+
+        <div class="prod-grid">
+
+          <!-- 1. L7 HD3 MSK — FEATURED -->
+          <a class="prod-card-featured" href="produit-1.html" data-cats="msk" data-tags="msk vasculaire doppler-couleur sans-fil">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/clarius 1.jpg" alt="L7 HD3">
+              <span class="prod-badge top">Best seller</span>
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">&#9733; Produit phare</div>
+              <div class="prod-card-name">Clarius L7 HD3 — Échographe Linéaire MSK</div>
+              <div class="prod-card-ref">Réf. LV1-L7HD3-2026</div>
+              <div class="prod-card-desc">Sonde linéaire sans fil pour MSK, vasculaire et tissus superficiels. Compatible iOS &amp; Android, démarrage en 10 secondes, optimisation IA.</div>
+              <div class="prod-card-tags">
+                <span class="prod-tag">MSK</span><span class="prod-tag">Vasculaire</span><span class="prod-tag">Doppler couleur</span><span class="prod-tag">4–13 MHz</span>
+              </div>
+              <div class="prod-card-ft">
+                <span class="prod-card-cta">Voir les détails &#8594;</span>
+                <div class="prod-card-actions">
+                  <span class="prod-icon-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- 2. L15 HD3 per-opératoire -->
+          <a class="prod-card" href="produit-2.html" data-cats="msk" data-tags="msk doppler-spectral sans-fil">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/eco 3.jpg" alt="L15 HD3">
+              <span class="prod-badge new">Nouveau</span>
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Per-opératoire</div>
+              <div class="prod-card-name">Clarius L15 HD3 — Sonde linéaire HF</div>
+              <div class="prod-card-ref">Réf. LV1-L15HD3-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">MSK</span><span class="prod-tag">Chirurgie plastique</span><span class="prod-tag">5–15 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+          <!-- 3. PA HD3 urgentistes -->
+          <a class="prod-card" href="produit-3.html" data-cats="urgences cardiologie" data-tags="urgences cardiologie pocus fast doppler-couleur sans-fil guidage">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/eco urgentiste.jpg" alt="PA HD3">
+              <span class="prod-badge pro">Pro</span>
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Urgences &amp; Réanimation</div>
+              <div class="prod-card-name">Clarius PA HD3 — Phased-array cardiaque</div>
+              <div class="prod-card-ref">Réf. LV1-PAHD3-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">POCUS</span><span class="prod-tag">Cardiologie</span><span class="prod-tag">FAST</span><span class="prod-tag">1–5 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+          <!-- 4. L20 HD3 cutanée -->
+          <a class="prod-card" href="produit-4.html" data-cats="cutane" data-tags="cutane elastographie sans-fil">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/cutanée.jpg" alt="L20 HD3">
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Cutané &amp; Superficiel</div>
+              <div class="prod-card-name">Clarius L20 HD3 — Ultra haute fréquence</div>
+              <div class="prod-card-ref">Réf. LV1-L20HD3-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">Dermatologie</span><span class="prod-tag">Ophtalmologie</span><span class="prod-tag">8–20 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+          <!-- 5. C3 HD3 polyvalente -->
+          <a class="prod-card" href="produit-5.html" data-cats="gynecologie" data-tags="gynecologie doppler-couleur sans-fil">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/ecographie polyvalente.jpg" alt="C3 HD3">
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Polyvalente</div>
+              <div class="prod-card-name">Clarius C3 HD3 — Sonde convexe</div>
+              <div class="prod-card-ref">Réf. LV1-C3HD3-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">Abdomen</span><span class="prod-tag">Gynéco-obstétrique</span><span class="prod-tag">2–6 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+          <!-- 6. PA HD3 urgentistes v2 -->
+          <a class="prod-card" href="produit-6.html" data-cats="urgences cardiologie" data-tags="urgences cardiologie fast doppler-couleur doppler-spectral sans-fil guidage">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/polyvalente.jpg" alt="PA HD3">
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Urgences &amp; Soins intensifs</div>
+              <div class="prod-card-name">Clarius PA HD3 — Full Body Imaging</div>
+              <div class="prod-card-ref">Réf. LV1-PAHD3B-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">Cardiaque</span><span class="prod-tag">FAST</span><span class="prod-tag">Abdominal</span><span class="prod-tag">1–5 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+          <!-- 7. EC7 HD3 endovaginale -->
+          <a class="prod-card" href="produit-7.html" data-cats="gynecologie" data-tags="gynecologie doppler-spectral sans-fil">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/indovarginale.jpg" alt="EC7 HD3">
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Gynécologie &amp; Obstétrique</div>
+              <div class="prod-card-name">Clarius EC7 HD3 — Sonde endocavitaire</div>
+              <div class="prod-card-ref">Réf. LV1-EC7HD3-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">Endovaginal</span><span class="prod-tag">Urologie</span><span class="prod-tag">3–10 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+          <!-- 8. C7 HD3 Vet -->
+          <a class="prod-card" href="produit-8.html" data-cats="veterinaire" data-tags="veterinaire doppler-couleur sans-fil">
+            <div class="prod-card-img-wrap">
+              <img class="prod-card-img" src="asset/veterinaire.jpg" alt="C7 Vet">
+              <span class="prod-badge new">Nouveau</span>
+              <div class="prod-overlay"><span class="prod-overlay-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Voir le produit</span></div>
+            </div>
+            <div class="prod-card-body">
+              <div class="prod-card-cat">Médecine vétérinaire</div>
+              <div class="prod-card-name">Clarius C7 HD3 Vet — Micro-convexe</div>
+              <div class="prod-card-ref">Réf. LV1-C7VET-2026</div>
+              <div class="prod-card-tags"><span class="prod-tag">Petit animal</span><span class="prod-tag">Abdominal</span><span class="prod-tag">3–10 MHz</span></div>
+              <div class="prod-card-ft"><span class="prod-card-cta">Voir détails &#8594;</span></div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- CTA BANNER -->
+        <div class="prod-cta-banner">
+          <div>
+            <div class="prod-cta-title">Besoin d'une démonstration ?</div>
+            <div class="prod-cta-sub">Nos experts cliniques se déplacent pour vous présenter la gamme dans votre établissement.</div>
+          </div>
+          <div class="prod-cta-btns">
+            <a href="rfq.html" class="btn-primary-lg">Demander une démo &#8594;</a>
+            <a href="catalogues.html" class="btn-outline-lg">Voir le catalogue</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-text"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+        <p class="footer-tagline">Imagerie medicale haute performance accessible a chaque clinicien.</p><div class="footer-divider"></div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact</h4>
+        <div class="footer-links">
+          <a href="tel:0021627690338">0021627690338</a>
+          <a href="mailto:contact3@lv1-health.com">contact3@lv1-health.com</a>
+          <span style="color:#9aa5b4;font-size:0.78rem;line-height:1.6;">56 avenue de carthage<br>1001 Tunis, Tunisia</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Suivez LV1</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/share/1P1c8GnVzF/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/clarius_tunisie?igsh=MXQ4NW41aW0zbHMxaQ==" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.linkedin.com/company/clarius-mobile-health-tunisie/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://www.tiktok.com/@clarius.tunisie?_r=1&amp;_t=ZS-95MtgF3DZhq" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container"><span>&copy; 2026 LV1 Health Tech. Tous droits reserves.</span></div></div>
+  </footer>
+  <script>
+    (function () {
+      const cards     = document.querySelectorAll('[data-cats]');
+      const tabBtns   = document.querySelectorAll('.prod-filter-btn');
+      const checkboxes= document.querySelectorAll('.prod-filter-list input[type="checkbox"]');
+      const searchInput = document.getElementById('prod-search-input');
+      const countEl  = document.querySelector('.prod-results-count strong');
+
+      let activeCat = 'all';
+      let searchQ   = '';
+
+      function normalize(str) {
+        return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      }
+
+      // Maps search keywords to data-cats values
+      const catAliases = {
+        'gyneco':       'gynecologie',
+        'gynecologie':  'gynecologie',
+        'gynécologie':  'gynecologie',
+        'gynéco':       'gynecologie',
+        'obstetrique':  'gynecologie',
+        'obstétrique':  'gynecologie',
+        'msk':          'msk',
+        'vasculaire':   'msk',
+        'urgence':      'urgences',
+        'urgences':     'urgences',
+        'pocus':        'urgences',
+        'cardiologie':  'cardiologie',
+        'cardiaque':    'cardiologie',
+        'cardio':       'cardiologie',
+        'veterinaire':  'veterinaire',
+        'vétérinaire':  'veterinaire',
+        'vet':          'veterinaire',
+        'cutane':       'cutane',
+        'cutané':       'cutane',
+        'dermato':      'cutane',
+        'dermatologie': 'cutane',
+      };
+
+      function applyFilters() {
+        const checkedTags = Array.from(checkboxes)
+          .filter(cb => cb.checked)
+          .map(cb => cb.value);
+
+        let visible = 0;
+        const q = normalize(searchQ);
+
+        cards.forEach(card => {
+          const cats = (card.dataset.cats || '').split(' ');
+          const tags = (card.dataset.tags || '').split(' ');
+          const nameEl = card.querySelector('[class*="card-name"]');
+          const catEl  = card.querySelector('[class*="card-cat"]');
+          const name   = normalize((nameEl ? nameEl.textContent : '') + ' ' + (catEl ? catEl.textContent : ''));
+          // Full searchable text: name + cats + tags joined
+          const fullText = normalize(name + ' ' + (card.dataset.cats || '') + ' ' + (card.dataset.tags || '').replace(/-/g, ' '));
+
+          // Tab filter
+          const matchCat = activeCat === 'all' || cats.includes(activeCat);
+
+          // Checkbox filter — if any checked, card must have at least one
+          const matchTag = checkedTags.length === 0 || checkedTags.some(t => tags.includes(t));
+
+          // Search filter: check name/tags, AND check alias map for specialty keywords
+          let matchSearch = true;
+          if (q !== '') {
+            const aliasedCat = catAliases[q];
+            if (aliasedCat) {
+              matchSearch = cats.includes(aliasedCat);
+            } else {
+              matchSearch = fullText.includes(q);
+            }
+          }
+
+          const show = matchCat && matchTag && matchSearch;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+
+        if (countEl) countEl.textContent = visible;
+      }
+
+      // Tab buttons
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCat = btn.dataset.cat || 'all';
+          applyFilters();
+        });
+      });
+
+      // Checkboxes
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', applyFilters);
+      });
+
+      // Search
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          searchQ = searchInput.value.trim();
+          applyFilters();
+        });
+      }
+    })();
+  </script>
+  <script src="search.js"></script>
+</body>
+</html>

@@ -1,0 +1,881 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LV1 Health - Catalogues</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cat-body { background: #f0f2f5; }
+
+    /* ── HERO BAND ── */
+    .cat-hero {
+      background: linear-gradient(120deg, #080d18 0%, #0f1b30 55%, #080d18 100%);
+      padding: 52px 0 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-hero::before {
+      content: '';
+      position: absolute;
+      right: 5%; top: -80px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(39,178,217,0.1), transparent 65%);
+      pointer-events: none;
+    }
+    .cat-hero::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -60px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,155,63,0.07), transparent 65%);
+      pointer-events: none;
+    }
+    .cat-hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .cat-hero-left { max-width: 580px; }
+    .cat-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: #4a6070;
+      margin-bottom: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .cat-breadcrumb a { color: #4a6070; text-decoration: none; }
+    .cat-breadcrumb a:hover { color: var(--accent); }
+    .cat-breadcrumb span { color: var(--accent); }
+    .cat-hero-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin: 0 0 14px;
+      letter-spacing: -0.5px;
+    }
+    .cat-hero-title em { font-style: normal; color: var(--accent); }
+    .cat-hero-sub {
+      font-size: 0.92rem;
+      color: #6a8090;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .cat-hero-stats {
+      display: flex;
+      gap: 32px;
+      flex-shrink: 0;
+    }
+    .cat-stat {
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 18px 24px;
+      min-width: 100px;
+    }
+    .cat-stat-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .cat-stat-label {
+      font-size: 0.68rem;
+      color: #5a7080;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    /* ── FILTER BAR ── */
+    .cat-filter-bar {
+      background: #fff;
+      border-bottom: 1px solid #e5e9f0;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .cat-filter-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-filter-inner::-webkit-scrollbar { display: none; }
+    .cat-filter-btn {
+      flex-shrink: 0;
+      padding: 16px 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #7a8898;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 180ms ease, border-color 180ms ease;
+      letter-spacing: 0.3px;
+    }
+    .cat-filter-btn:hover { color: #1a1f2e; }
+    .cat-filter-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── MAIN LAYOUT ── */
+    .cat-main {
+      padding: 44px 0 64px;
+    }
+    .cat-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .cat-sidebar {
+      position: sticky;
+      top: 60px;
+    }
+    .cat-sidebar-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-bottom: 16px;
+    }
+    .cat-sidebar-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a1f2e;
+      margin: 0 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eef0f5;
+    }
+    .cat-filter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .cat-filter-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: #4a5568;
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 7px;
+      transition: background 160ms ease;
+      font-weight: 500;
+    }
+    .cat-filter-item:hover { background: #f4f6fa; }
+    .cat-filter-item input { accent-color: var(--accent); width: 15px; height: 15px; }
+    .cat-filter-count {
+      margin-left: auto;
+      font-size: 0.68rem;
+      background: #eef0f5;
+      color: #8090a4;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .cat-download-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--accent), #1fa0c4);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      text-align: left;
+      transition: opacity 180ms ease, transform 180ms ease;
+      margin-bottom: 10px;
+      text-decoration: none;
+    }
+    .cat-download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .cat-download-btn.outline {
+      background: none;
+      border: 1px solid #e0e5ec;
+      color: #4a5568;
+    }
+    .cat-download-btn.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── PRODUCT GRID ── */
+    .cat-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      gap: 12px;
+    }
+    .cat-results-count {
+      font-size: 0.82rem;
+      color: #6a7888;
+      font-weight: 600;
+    }
+    .cat-results-count strong { color: #1a1f2e; }
+    .cat-sort {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #6a7888;
+    }
+    .cat-sort select {
+      padding: 7px 12px;
+      border: 1px solid #e0e5ec;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      color: #2d3748;
+      background: #fff;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cat-view-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .cat-view-btn {
+      width: 34px; height: 34px;
+      border: 1px solid #e0e5ec;
+      background: #fff;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #8a96a8;
+      transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+    }
+    .cat-view-btn.active, .cat-view-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(39,178,217,0.05);
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .cat-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.11);
+    }
+    .cat-card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: #f4f6fa;
+    }
+    .cat-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 400ms ease;
+    }
+    .cat-card:hover .cat-card-img { transform: scale(1.05); }
+    .cat-card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #fff;
+    }
+    .cat-card-badge.new { background: var(--accent); }
+    .cat-card-badge.top { background: var(--accent-orange); }
+    .cat-card-badge.pro { background: #2d3748; }
+    .cat-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(10,20,35,0.6) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 250ms ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .cat-card:hover .cat-card-overlay { opacity: 1; }
+    .cat-card-overlay-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: #1a1f2e;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+    .cat-card-body {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .cat-card-category {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .cat-card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f1520;
+      margin: 0 0 8px;
+      line-height: 1.35;
+    }
+    .cat-card-model {
+      font-size: 0.75rem;
+      color: #8090a4;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .cat-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .cat-tag {
+      font-size: 0.62rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: #eef2f7;
+      color: #4a6078;
+    }
+    .cat-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #eef0f5;
+    }
+    .cat-card-cta {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 160ms ease;
+    }
+    .cat-card:hover .cat-card-cta { gap: 8px; }
+    .cat-card-dl {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid #e0e5ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8090a4;
+      transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+    }
+    .cat-card:hover .cat-card-dl {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(39,178,217,0.06);
+    }
+
+    /* ── RELATED SEARCHES ── */
+    .cat-related {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      margin-top: 40px;
+    }
+    .cat-related-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #1a1f2e;
+      margin: 0 0 14px;
+    }
+    .cat-related-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .cat-related-tag {
+      font-size: 0.78rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #e0e5ec;
+      color: #4a5568;
+      text-decoration: none;
+      transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+      font-weight: 500;
+    }
+    .cat-related-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(39,178,217,0.04);
+    }
+    .cat-footer-note {
+      font-size: 0.75rem;
+      color: #9aa3b2;
+      line-height: 1.6;
+      margin: 0;
+      padding-top: 14px;
+      border-top: 1px solid #eef0f5;
+    }
+
+    @media (max-width: 1024px) {
+      .cat-layout { grid-template-columns: 1fr; }
+      .cat-sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-hero-stats { display: none; }
+    }
+    @media (max-width: 600px) {
+      .cat-grid { grid-template-columns: 1fr; }
+      .cat-sidebar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="cat-body">
+  <header class="top-header">
+    <div class="container top-row">
+      <div class="brand"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+      <div class="search-wrap"><input type="text" aria-label="Recherche" placeholder="Rechercher un produit, une marque..."><button type="button" aria-label="Lancer la recherche">&#128269;</button></div>
+      <div class="header-actions"><span class="lang">Français</span><span class="expo">MY MEDICALEXPO</span><button class="cta-btn" type="button">DEVENIR EXPOSANT</button></div>
+    </div>
+    <nav class="container main-nav" aria-label="Navigation principale">
+      <a href="societe.html">SOCI&#201;T&#201;</a><a href="produits-company.html">PRODUITS</a><a class="active" href="catalogues.html">CATALOGUES</a><a href="rfq.html">RFQ</a><a href="news-trends.html">NEWS &amp; TRENDS</a><a href="e-magazine.html">E-MAGAZINE</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div style="background:#fff; border-bottom:1px solid #e5e9f0; padding:24px 0 20px;">
+    <div class="container">
+      <div class="cat-breadcrumb" style="margin-bottom:14px;">
+        <a href="societe.html">Accueil</a>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Catalogues</span>
+      </div>
+      <h1 style="font-size:1.5rem;font-weight:800;color:#1a2540;margin:0 0 6px;">Catalogue produits LV1 Health Tech</h1>
+      <p style="font-size:0.85rem;color:#7a8799;margin:0;max-width:580px;">Explorez notre gamme complète d'échographes portables sans fil — filtrés par spécialité, application clinique ou technologie.</p>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="cat-filter-bar">
+    <div class="container cat-filter-inner">
+      <button class="cat-filter-btn active">Tous les produits</button>
+      <button class="cat-filter-btn">Urgences &amp; POCUS</button>
+      <button class="cat-filter-btn">MSK &amp; Vasculaire</button>
+      <button class="cat-filter-btn">Gynécologie</button>
+      <button class="cat-filter-btn">Vétérinaire</button>
+      <button class="cat-filter-btn">Pédiatrie</button>
+      <button class="cat-filter-btn">Formation</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="cat-main">
+    <div class="container cat-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="cat-sidebar">
+        <div class="cat-sidebar-card">
+          <div class="cat-sidebar-title">Technologie</div>
+          <div class="cat-filter-list">
+            <label class="cat-filter-item"><input type="checkbox" checked> Sonde sans fil <span class="cat-filter-count">6</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Doppler couleur <span class="cat-filter-count">5</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Doppler spectral <span class="cat-filter-count">4</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Élastographie <span class="cat-filter-count">2</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Phased-array <span class="cat-filter-count">3</span></label>
+          </div>
+        </div>
+        <div class="cat-sidebar-card">
+          <div class="cat-sidebar-title">Spécialité</div>
+          <div class="cat-filter-list">
+            <label class="cat-filter-item"><input type="checkbox" checked> Urgences <span class="cat-filter-count">4</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> MSK <span class="cat-filter-count">3</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Gynécologie <span class="cat-filter-count">2</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Vétérinaire <span class="cat-filter-count">1</span></label>
+            <label class="cat-filter-item"><input type="checkbox"> Cutané <span class="cat-filter-count">2</span></label>
+          </div>
+        </div>
+        <div class="cat-sidebar-card">
+          <div class="cat-sidebar-title">Téléchargements</div>
+          <a href="#" class="cat-download-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Catalogue complet PDF
+          </a>
+          <a href="#" class="cat-download-btn outline">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Fiche technique
+          </a>
+        </div>
+      </aside>
+
+      <!-- PRODUCT GRID -->
+      <div>
+        <div class="cat-toolbar">
+          <div class="cat-results-count"><strong>6</strong> produits trouvés</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="cat-sort">
+              <span>Trier par</span>
+              <select><option>Pertinence</option><option>Nouveautés</option><option>Nom A-Z</option></select>
+            </div>
+            <div class="cat-view-toggle">
+              <button class="cat-view-btn active" title="Grille">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </button>
+              <button class="cat-view-btn" title="Liste">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cat-grid">
+
+          <a class="cat-card" href="produit-1.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/clarius 1.jpg" alt="Échographe Clarius">
+              <span class="cat-card-badge new">Nouveau</span>
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Échographe sans fil</div>
+              <div class="cat-card-title">Clarius L7 HD3 — Sonde linéaire</div>
+              <div class="cat-card-model">Réf. LV1-L7HD3-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">MSK</span>
+                <span class="cat-tag">Vasculaire</span>
+                <span class="cat-tag">Doppler couleur</span>
+                <span class="cat-tag">Sans fil</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-2.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/eco 3.jpg" alt="Échographe per-opératoire">
+              <span class="cat-card-badge top">Best seller</span>
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Sonde linéaire per-opératoire</div>
+              <div class="cat-card-title">Clarius L15 HD3 — Sonde linéaire per-opératoire</div>
+              <div class="cat-card-model">Réf. LV1-L15HD3-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">Per-opératoire</span>
+                <span class="cat-tag">MSK</span>
+                <span class="cat-tag">Chirurgie plastique</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-3.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/eco urgentiste.jpg" alt="Échographe urgentiste">
+              <span class="cat-card-badge pro">Pro</span>
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Urgences &amp; Réanimation</div>
+              <div class="cat-card-title">Clarius PA HD3 — Phased-array cardiaque</div>
+              <div class="cat-card-model">Réf. LV1-PAHD3-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">POCUS</span>
+                <span class="cat-tag">Cardiologie</span>
+                <span class="cat-tag">FAST</span>
+                <span class="cat-tag">Réa</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-5.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/ecographie polyvalente.jpg" alt="Échographe polyvalent">
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Sonde convexe polyvalente</div>
+              <div class="cat-card-title">Clarius C3 HD3 — Sonde convexe polyvalente</div>
+              <div class="cat-card-model">Réf. LV1-C3HD3-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">Abdomen</span>
+                <span class="cat-tag">Obstétrique</span>
+                <span class="cat-tag">Polyvalent</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-7.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/indovarginale.jpg" alt="Sonde endovaginale">
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Gynécologie &amp; Obstétrique</div>
+              <div class="cat-card-title">Clarius EC7 HD3 — Sonde endocavitaire</div>
+              <div class="cat-card-model">Réf. LV1-EC7HD3-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">Endovaginal</span>
+                <span class="cat-tag">Grossesse</span>
+                <span class="cat-tag">Gynéco</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-8.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/veterinaire.jpg" alt="Vétérinaire">
+              <span class="cat-card-badge new">Nouveau</span>
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Médecine vétérinaire</div>
+              <div class="cat-card-title">Clarius VET C7 — Sonde vétérinaire sans fil</div>
+              <div class="cat-card-model">Réf. LV1-VETC7-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">Vétérinaire</span>
+                <span class="cat-tag">Terrain</span>
+                <span class="cat-tag">Portable</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-4.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/cutanée.jpg" alt="Échographe cutané">
+              <span class="cat-card-badge pro">Pro</span>
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Imagerie cutanée haute fréquence</div>
+              <div class="cat-card-title">Clarius L20 HD3 — Sonde cutanée</div>
+              <div class="cat-card-model">Réf. LV1-L20HD3-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">Cutané</span>
+                <span class="cat-tag">Thyroïde</span>
+                <span class="cat-tag">Nerveux périph.</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cat-card" href="produit-6.html">
+            <div class="cat-card-img-wrap">
+              <img class="cat-card-img" src="asset/polyvalente.jpg" alt="Échographe full body">
+              <div class="cat-card-overlay">
+                <span class="cat-card-overlay-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Voir le produit
+                </span>
+              </div>
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-category">Sonde phased-array full body</div>
+              <div class="cat-card-title">Clarius PA HD3 — Full Body</div>
+              <div class="cat-card-model">Réf. LV1-PAHD3FB-2026</div>
+              <div class="cat-card-tags">
+                <span class="cat-tag">Full Body</span>
+                <span class="cat-tag">Cardiaque</span>
+                <span class="cat-tag">Polyvalent</span>
+              </div>
+              <div class="cat-card-footer">
+                <span class="cat-card-cta">Voir détails &#8594;</span>
+                <span class="cat-card-dl" title="Télécharger fiche">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- RELATED SEARCHES -->
+        <div class="cat-related">
+          <div class="cat-related-title">Recherches associées</div>
+          <div class="cat-related-tags">
+            <a href="#" class="cat-related-tag">Échographe CLARIUS</a>
+            <a href="#" class="cat-related-tag">Échographe noir et blanc</a>
+            <a href="#" class="cat-related-tag">Échographe doppler couleur</a>
+            <a href="#" class="cat-related-tag">Échographe portable</a>
+            <a href="#" class="cat-related-tag">Échographe polyvalente</a>
+            <a href="#" class="cat-related-tag">Échographe linéaire</a>
+            <a href="#" class="cat-related-tag">Échographe convexe</a>
+            <a href="#" class="cat-related-tag">Échographe sonde wireless</a>
+            <a href="#" class="cat-related-tag">Phased-array</a>
+            <a href="#" class="cat-related-tag">Échographe endocavitaire</a>
+            <a href="#" class="cat-related-tag">Échographe élastographie</a>
+            <a href="#" class="cat-related-tag">Guidage d'aiguille</a>
+            <a href="#" class="cat-related-tag">Échographie cutanée</a>
+          </div>
+          <p class="cat-footer-note">* Les prix s'entendent hors taxe, hors frais de livraison, hors droits de douane, et ne comprennent pas l'ensemble des coûts supplémentaires liés aux options d'installation ou de mise en service. Les prix sont donnés à titre indicatif et peuvent évoluer en fonction des pays, des cours des matières premières et des taux de change.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-text"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+        <p class="footer-tagline">Imagerie medicale haute performance accessible a chaque clinicien.</p><div class="footer-divider"></div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact</h4>
+        <div class="footer-links">
+          <a href="tel:0021627690338">0021627690338</a>
+          <a href="mailto:contact3@lv1-health.com">contact3@lv1-health.com</a>
+          <span style="color:#9aa5b4;font-size:0.78rem;line-height:1.6;">56 avenue de carthage<br>1001 Tunis, Tunisia</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Suivez LV1</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/share/1P1c8GnVzF/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/clarius_tunisie?igsh=MXQ4NW41aW0zbHMxaQ==" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.linkedin.com/company/clarius-mobile-health-tunisie/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://www.tiktok.com/@clarius.tunisie?_r=1&amp;_t=ZS-95MtgF3DZhq" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container"><span>&copy; 2026 LV1 Health Tech. Tous droits reserves.</span></div></div>
+  </footer>
+  <script>
+    document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cat-view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+  <script src="search.js"></script>
+</body>
+</html>

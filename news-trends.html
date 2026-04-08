@@ -1,0 +1,509 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LV1 Health - News & Trends</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(39,178,217,0.3), transparent);
+    }
+
+    /* ── NEWS CONTENT WRAPPER ── */
+    .news-content {
+      padding: 50px 0 60px;
+      background: #f5f7fa;
+    }
+
+    /* ── FEATURED CONGRES SECTION ── */
+    .congres-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      margin-bottom: 56px;
+    }
+    .congres-featured {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+    }
+    .congres-video-wrap {
+      position: relative;
+      background: #0d1420;
+    }
+    .congres-video-wrap video {
+      width: 100%;
+      display: block;
+      max-height: 320px;
+      object-fit: cover;
+    }
+    .video-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: rgba(39,178,217,0.92);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .congres-body {
+      padding: 24px 26px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .congres-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      margin-bottom: 10px;
+    }
+    .congres-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a1f2e;
+      line-height: 1.35;
+      margin: 0 0 12px;
+    }
+    .congres-desc {
+      font-size: 0.88rem;
+      color: #5a6578;
+      line-height: 1.7;
+      margin: 0 0 20px;
+      flex: 1;
+    }
+    .congres-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.78rem;
+      color: #8a96a8;
+    }
+    .congres-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── SIDE CARDS ── */
+    .congres-side {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .news-card-sm {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 0;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .news-card-sm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    }
+    .news-card-sm-thumb {
+      width: 110px;
+      flex-shrink: 0;
+      background: #e8edf3;
+      overflow: hidden;
+    }
+    .news-card-sm-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .news-card-sm-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .news-card-sm-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .news-card-sm-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1a1f2e;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .news-card-sm-date {
+      font-size: 0.72rem;
+      color: #8a96a8;
+    }
+
+    /* ── ECO MOBILE SECTION ── */
+    .eco-section {
+      margin-bottom: 56px;
+    }
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .eco-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+      position: relative;
+    }
+    .eco-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.11);
+    }
+    .eco-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .eco-card-img-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #1a2a3a, #0d1420);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .eco-card-img-placeholder svg {
+      width: 48px;
+      height: 48px;
+      color: rgba(39,178,217,0.4);
+    }
+    .eco-card-body {
+      padding: 20px 22px 22px;
+    }
+    .eco-card-cat {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--accent);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .eco-card-cat.orange { background: var(--accent-orange); }
+    .eco-card-cat.dark { background: #2d3748; }
+    .eco-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1f2e;
+      line-height: 1.4;
+      margin: 0 0 10px;
+    }
+    .eco-card-excerpt {
+      font-size: 0.83rem;
+      color: #5a6578;
+      line-height: 1.65;
+      margin: 0 0 16px;
+    }
+    .eco-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #edf0f4;
+    }
+    .eco-card-date {
+      font-size: 0.75rem;
+      color: #9aa3b0;
+    }
+    .eco-card-link {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 160ms ease;
+    }
+    .eco-card-link:hover { gap: 8px; }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      background: linear-gradient(135deg, #0d1420, #162035);
+      border-radius: 16px;
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2327b2d9' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .stat-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .stat-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-num span {
+      color: var(--accent-orange);
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: #7e90a8;
+      line-height: 1.5;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .congres-grid { grid-template-columns: 1fr; }
+      .eco-grid { grid-template-columns: 1fr 1fr; }
+      .stat-strip { grid-template-columns: 1fr 1fr; padding: 28px 24px; }
+    }
+    @media (max-width: 600px) {
+      .eco-grid { grid-template-columns: 1fr; }
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="container top-row">
+      <div class="brand"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+      <div class="search-wrap"><input type="text" aria-label="Recherche" placeholder="Rechercher un produit, une marque..."><button type="button" aria-label="Lancer la recherche">&#128269;</button></div>
+      <div class="header-actions"><span class="lang">Français</span><span class="expo">MY MEDICALEXPO</span><button class="cta-btn" type="button">DEVENIR EXPOSANT</button></div>
+    </div>
+    <nav class="container main-nav" aria-label="Navigation principale">
+      <a href="societe.html">SOCI&#201;T&#201;</a><a href="produits-company.html">PRODUITS</a><a href="catalogues.html">CATALOGUES</a><a href="rfq.html">RFQ</a><a class="active" href="news-trends.html">NEWS &amp; TRENDS</a><a href="e-magazine.html">E-MAGAZINE</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="news-content">
+    <div class="container">
+
+      <!-- STATS -->
+      <div class="stat-strip">
+        <div class="stat-item">
+          <div class="stat-num">12<span>+</span></div>
+          <div class="stat-label">Congrès médicaux<br>représentés</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3<span>K+</span></div>
+          <div class="stat-label">Cliniciens formés<br>à l'écho mobile</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98<span>%</span></div>
+          <div class="stat-label">Satisfaction utilisateur<br>écho portable</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">40<span>+</span></div>
+          <div class="stat-label">Publications &amp;<br>études partagées</div>
+        </div>
+      </div>
+
+      <!-- CONGRES SECTION -->
+      <div class="section-label">Vidéos des Congrès</div>
+      <div class="congres-grid">
+
+        <!-- Featured video -->
+        <div class="congres-featured">
+          <div class="congres-video-wrap">
+            <span class="video-badge">&#9654; Vidéo</span>
+            <video controls muted preload="metadata" poster="">
+              <source src="asset/video.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="congres-body">
+            <div class="congres-tag">&#127897; Congrès International</div>
+            <h2 class="congres-title">Démonstration live — Échographie portable en urgence</h2>
+            <p class="congres-desc">Retour complet sur notre participation au congrès international d'imagerie médicale. Découvrez comment l'échographe LV1 a été utilisé en conditions réelles par des urgentistes et anesthésistes.</p>
+            <div class="congres-meta">
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Mars 2026
+              </span>
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                8 min
+              </span>
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+                Paris, France
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side cards -->
+        <div class="congres-side">
+          <div class="news-card-sm">
+            <div class="news-card-sm-thumb">
+              <img src="asset/eco urgentiste.jpg" alt="Urgentiste">
+            </div>
+            <div class="news-card-sm-body">
+              <div class="news-card-sm-tag">&#127897; Congrès SFMU</div>
+              <div class="news-card-sm-title">Echo-FAST en médecine d'urgence — Résultats terrain</div>
+              <div class="news-card-sm-date">Février 2026</div>
+            </div>
+          </div>
+          <div class="news-card-sm">
+            <div class="news-card-sm-thumb">
+              <img src="asset/eco 3.jpg" alt="Congrès">
+            </div>
+            <div class="news-card-sm-body">
+              <div class="news-card-sm-tag">&#127897; Congrès SFR</div>
+              <div class="news-card-sm-title">Innovation radiologique : l'écho sans fil en point of care</div>
+              <div class="news-card-sm-date">Janvier 2026</div>
+            </div>
+          </div>
+          <div class="news-card-sm">
+            <div class="news-card-sm-thumb">
+              <img src="asset/ecographie polyvalente.jpg" alt="Formation">
+            </div>
+            <div class="news-card-sm-body">
+              <div class="news-card-sm-tag">&#127897; Formation</div>
+              <div class="news-card-sm-title">Workshop LV1 — Formation accélérée échographie mobile</div>
+              <div class="news-card-sm-date">Décembre 2025</div>
+            </div>
+          </div>
+          <div class="news-card-sm">
+            <div class="news-card-sm-thumb">
+              <img src="asset/polyvalente.jpg" alt="Congrès">
+            </div>
+            <div class="news-card-sm-body">
+              <div class="news-card-sm-tag">&#127897; Congrès ESICM</div>
+              <div class="news-card-sm-title">Réanimation &amp; écho mobile : protocoles de 2025</div>
+              <div class="news-card-sm-date">Novembre 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ECO MOBILE NEWS -->
+      <div class="eco-section">
+        <div class="section-label">News — Échographie Mobile</div>
+        <div class="eco-grid">
+
+          <div class="eco-card">
+            <img class="eco-card-img" src="asset/clarius 1.jpg" alt="Clarius">
+            <div class="eco-card-body">
+              <span class="eco-card-cat">Innovation</span>
+              <h3 class="eco-card-title">Nouvelle génération d'échographes sans fil : ce qui change pour le clinicien</h3>
+              <p class="eco-card-excerpt">La miniaturisation des sondes et l'IA embarquée transforment radicalement la pratique de l'imagerie point-of-care en 2026.</p>
+              <div class="eco-card-footer">
+                <span class="eco-card-date">15 Mars 2026</span>
+                <a href="#" class="eco-card-link">Lire &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="eco-card">
+            <img class="eco-card-img" src="asset/cutanée.jpg" alt="Cutanée">
+            <div class="eco-card-body">
+              <span class="eco-card-cat orange">Étude clinique</span>
+              <h3 class="eco-card-title">Échographie cutanée mobile : résultats de l'étude multicentrique</h3>
+              <p class="eco-card-excerpt">Une étude portant sur 420 patients démontre l'efficacité diagnostique de l'écho portable dans les services de dermatologie.</p>
+              <div class="eco-card-footer">
+                <span class="eco-card-date">8 Mars 2026</span>
+                <a href="#" class="eco-card-link">Lire &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="eco-card">
+            <img class="eco-card-img" src="asset/indovarginale.jpg" alt="Gynécologie">
+            <div class="eco-card-body">
+              <span class="eco-card-cat dark">Gynécologie</span>
+              <h3 class="eco-card-title">Écho mobile en gynécologie obstétrique : adoption en forte hausse</h3>
+              <p class="eco-card-excerpt">Les maternités et cabinets de gynécologie adoptent massivement l'échographie portable pour le suivi de grossesse en ambulatoire.</p>
+              <div class="eco-card-footer">
+                <span class="eco-card-date">1 Mars 2026</span>
+                <a href="#" class="eco-card-link">Lire &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-text"><span class="brand-lv1">LV1</span><span class="brand-health"> Health</span><span class="brand-tech"> Tech</span></div>
+        <p class="footer-tagline">Imagerie medicale haute performance accessible a chaque clinicien.</p><div class="footer-divider"></div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact</h4>
+        <div class="footer-links">
+          <a href="tel:0021627690338">0021627690338</a>
+          <a href="mailto:contact3@lv1-health.com">contact3@lv1-health.com</a>
+          <span style="color:#9aa5b4;font-size:0.78rem;line-height:1.6;">56 avenue de carthage<br>1001 Tunis, Tunisia</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Suivez LV1</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/share/1P1c8GnVzF/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/clarius_tunisie?igsh=MXQ4NW41aW0zbHMxaQ==" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.linkedin.com/company/clarius-mobile-health-tunisie/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://www.tiktok.com/@clarius.tunisie?_r=1&amp;_t=ZS-95MtgF3DZhq" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container"><span>&copy; 2026 LV1 Health Tech. Tous droits reserves.</span></div></div>
+  </footer>
+  <script src="search.js"></script>
+</body>
+</html>
