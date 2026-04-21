@@ -84,9 +84,9 @@ const SEED = {
     },
     {
       id: 'p3',
-      nameFR: 'Clarius PA HD3', nameAR: 'كلاريوس PA HD3', nameEN: 'Clarius PA HD3',
+      nameFR: 'Clarius PAL HD3', nameAR: 'كلاريوس PAL HD3', nameEN: 'Clarius PAL HD3',
       subtitle: 'Sonde à Réseau Phasé Cardiaque',
-      category: 'cat1', model: 'HD3-PA',
+      category: 'cat1', model: 'HD3-PAL',
       featured: false, published: true,
       image: '../asset/eco 3.jpg',
       descFR: 'Sonde à réseau phasé sans fil dédiée à l\'échocardiographie et à l\'échographie pulmonaire avancée.',
