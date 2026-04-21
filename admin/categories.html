@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catégories — LV1 Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-mark">LV1</div>
+      <div class="sidebar__logo-text">
+        <div class="sidebar__logo-name">LV1 <span>Health</span></div>
+        <div class="sidebar__logo-sub">Admin</div>
+      </div>
+    </div>
+    <nav class="sidebar__nav">
+      <a class="sidebar__nav-item" data-page="index.html" href="index.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+        Tableau de bord
+      </a>
+      <a class="sidebar__nav-item" data-page="products.html" href="products.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
+        Produits
+      </a>
+      <a class="sidebar__nav-item" data-page="brochures.html" href="brochures.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+        Brochures
+      </a>
+      <a class="sidebar__nav-item" data-page="categories.html" href="categories.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+        Catégories
+      </a>
+      <a class="sidebar__nav-item" data-page="settings.html" href="settings.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+        Paramètres
+      </a>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="sidebar__avatar">A</div>
+        <div class="sidebar__user-info">
+          <div class="sidebar__user-name">Administrateur</div>
+          <div class="sidebar__user-role">LV1 Health Tech</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+    <header class="topbar">
+      <span class="topbar__title">Catégories</span>
+      <div class="topbar__right">
+        <button class="btn btn--primary" id="newCatBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nouvelle catégorie
+        </button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="page-header">
+        <div class="page-header__left">
+          <h1 class="page-header__title">Gestion des catégories</h1>
+          <p class="page-header__sub" id="catCount">Chargement…</p>
+        </div>
+      </div>
+
+      <!-- Inline form -->
+      <div class="cat-inline-form" id="catForm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <strong id="formTitle" style="font-size:0.9rem;">Nouvelle catégorie</strong>
+          <button type="button" class="btn btn--ghost btn--sm" id="cancelForm">Annuler</button>
+        </div>
+        <div class="cat-inline-form__grid">
+          <div class="form-field" style="margin:0;">
+            <label class="form-label">Nom (FR) *</label>
+            <input class="form-input" type="text" id="cfNameFR" placeholder="Ex : Échographie">
+          </div>
+          <div class="form-field" style="margin:0;">
+            <label class="form-label">الاسم (AR)</label>
+            <input class="form-input" type="text" id="cfNameAR" placeholder="مثال: التصوير" dir="rtl">
+          </div>
+          <div class="form-field" style="margin:0;">
+            <label class="form-label">Name (EN)</label>
+            <input class="form-input" type="text" id="cfNameEN" placeholder="Ex: Ultrasound">
+          </div>
+        </div>
+        <div class="cat-inline-form__row2">
+          <div class="form-field" style="margin:0;">
+            <label class="form-label">Icône (emoji)</label>
+            <input class="form-input" type="text" id="cfIcon" placeholder="🔊" style="width:80px;text-align:center;font-size:1.2rem;">
+          </div>
+          <div class="cat-color-wrap form-field" style="margin:0;">
+            <label class="form-label">Couleur</label>
+            <input type="color" id="cfColor" value="#27b2d9">
+          </div>
+          <div style="flex:1;"></div>
+          <input type="hidden" id="cfId">
+          <button type="button" class="btn btn--primary" id="saveFormBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+            Enregistrer
+          </button>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div class="cat-grid" id="catGrid"></div>
+
+      <div id="emptyState" class="empty-state" style="display:none;">
+        <div class="empty-state__icon">🏷️</div>
+        <div class="empty-state__title">Aucune catégorie</div>
+        <div class="empty-state__sub">Créez votre première catégorie pour organiser votre catalogue.</div>
+        <button class="btn btn--primary" id="emptyNewCat">Créer une catégorie</button>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+setSidebarActive('categories.html');
+wireLogout();
+
+function prodCount(catId) {
+  return Products.all().filter(p => p.category === catId).length;
+}
+
+function renderGrid() {
+  const cats  = Categories.all();
+  const grid  = document.getElementById('catGrid');
+  const empty = document.getElementById('emptyState');
+  document.getElementById('catCount').textContent = cats.length + ' catégorie' + (cats.length !== 1 ? 's' : '');
+
+  if (!cats.length) {
+    grid.innerHTML    = '';
+    empty.style.display = 'flex';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = cats.map(c => {
+    const pc = prodCount(c.id);
+    return `
+      <div class="cat-card">
+        <div class="cat-card__icon" style="background:${c.color}22;">${c.icon || '📁'}</div>
+        <div class="cat-card__body">
+          <div class="cat-card__name">${c.nameFR}</div>
+          <div class="cat-card__langs">${c.nameEN || ''} · ${c.nameAR || ''}</div>
+          <div style="margin-top:4px;">
+            <span class="badge badge--neutral badge--dot">${pc} produit${pc !== 1 ? 's' : ''}</span>
+          </div>
+        </div>
+        <div class="cat-card__actions">
+          <button class="btn btn--ghost btn--sm btn--icon" title="Modifier" data-edit="${c.id}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="btn btn--danger-ghost btn--sm btn--icon" title="Supprimer" data-delete="${c.id}" data-name="${c.nameFR.replace(/"/g,'&quot;')}" ${pc > 0 ? 'disabled title="Impossible : des produits utilisent cette catégorie"' : ''}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openForm(cat) {
+  const form = document.getElementById('catForm');
+  form.classList.add('open');
+  document.getElementById('formTitle').textContent = cat ? 'Modifier la catégorie' : 'Nouvelle catégorie';
+  document.getElementById('cfId').value     = cat ? cat.id     : '';
+  document.getElementById('cfNameFR').value = cat ? cat.nameFR : '';
+  document.getElementById('cfNameAR').value = cat ? cat.nameAR : '';
+  document.getElementById('cfNameEN').value = cat ? cat.nameEN : '';
+  document.getElementById('cfIcon').value   = cat ? cat.icon   : '';
+  document.getElementById('cfColor').value  = cat ? cat.color  : '#27b2d9';
+  document.getElementById('cfNameFR').focus();
+  form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function closeForm() {
+  document.getElementById('catForm').classList.remove('open');
+}
+
+document.getElementById('newCatBtn').addEventListener('click', () => openForm(null));
+document.getElementById('emptyNewCat') && document.getElementById('emptyNewCat').addEventListener('click', () => openForm(null));
+document.getElementById('cancelForm').addEventListener('click', closeForm);
+
+document.getElementById('saveFormBtn').addEventListener('click', () => {
+  const nameFR = document.getElementById('cfNameFR').value.trim();
+  if (!nameFR) {
+    document.getElementById('cfNameFR').focus();
+    document.getElementById('cfNameFR').style.borderColor = 'var(--danger)';
+    setTimeout(() => document.getElementById('cfNameFR').style.borderColor = '', 1500);
+    Toast.error('Le nom en français est obligatoire.');
+    return;
+  }
+  const cat = {
+    id:     document.getElementById('cfId').value || undefined,
+    nameFR,
+    nameAR: document.getElementById('cfNameAR').value.trim(),
+    nameEN: document.getElementById('cfNameEN').value.trim(),
+    icon:   document.getElementById('cfIcon').value.trim() || '📁',
+    color:  document.getElementById('cfColor').value,
+    createdAt: undefined
+  };
+  const isEdit = !!cat.id;
+  if (isEdit) {
+    const existing = Categories.get(cat.id);
+    cat.createdAt = existing ? existing.createdAt : undefined;
+  }
+  Categories.save(cat);
+  closeForm();
+  renderGrid();
+  Toast.success(isEdit ? `Catégorie "${nameFR}" mise à jour.` : `Catégorie "${nameFR}" créée.`);
+});
+
+document.getElementById('catGrid').addEventListener('click', async function(e) {
+  const editBtn = e.target.closest('[data-edit]');
+  if (editBtn) {
+    const c = Categories.get(editBtn.dataset.edit);
+    if (c) openForm(c);
+    return;
+  }
+  const delBtn = e.target.closest('[data-delete]');
+  if (delBtn && !delBtn.disabled) {
+    const id   = delBtn.dataset.delete;
+    const name = delBtn.dataset.name;
+    const ok   = await Modal.confirm(`Supprimer la catégorie "<strong>${name}</strong>" ?`);
+    if (!ok) return;
+    Categories.delete(id);
+    renderGrid();
+    Toast.success(`Catégorie supprimée.`);
+  }
+});
+
+renderGrid();
+</script>
+</body>
+</html>

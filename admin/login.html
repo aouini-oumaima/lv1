@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — LV1 Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="login-body">
+
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-mark">LV1</div>
+      <div class="login-logo-text">
+        <div class="login-logo-name">
+          <span class="c1">LV1</span><span class="c2"> Health</span> Tech
+        </div>
+        <div class="login-logo-sub">Espace Administration</div>
+      </div>
+    </div>
+
+    <h1 class="login-title">Bon retour</h1>
+    <p class="login-sub">Connectez-vous pour gérer votre site.</p>
+
+    <div class="login-error" id="loginError">
+      Mot de passe incorrect. Veuillez réessayer.
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="login-field">
+        <label class="login-label" for="password">Mot de passe</label>
+        <input
+          class="login-input"
+          type="password"
+          id="password"
+          placeholder="••••••••••"
+          autocomplete="current-password"
+          autofocus
+        >
+      </div>
+      <button class="login-btn" type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Se connecter
+      </button>
+    </form>
+
+    <div class="login-footer">
+      Accès réservé aux administrateurs LV1 Health Tech
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script>
+    /* Redirect if already logged in */
+    if (Auth.check()) window.location.replace('index.html');
+
+    const form  = document.getElementById('loginForm');
+    const input = document.getElementById('password');
+    const errEl = document.getElementById('loginError');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      errEl.classList.remove('visible');
+      const pw = input.value.trim();
+      if (!pw) { input.focus(); return; }
+      if (Auth.login(pw)) {
+        window.location.replace('index.html');
+      } else {
+        errEl.classList.add('visible');
+        input.value = '';
+        input.focus();
+        input.style.borderColor = 'var(--danger)';
+        setTimeout(() => { input.style.borderColor = ''; }, 1800);
+      }
+    });
+  </script>
+</body>
+</html>

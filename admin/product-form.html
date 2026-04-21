@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produit — LV1 Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-mark">LV1</div>
+      <div class="sidebar__logo-text">
+        <div class="sidebar__logo-name">LV1 <span>Health</span></div>
+        <div class="sidebar__logo-sub">Admin</div>
+      </div>
+    </div>
+    <nav class="sidebar__nav">
+      <a class="sidebar__nav-item" data-page="index.html" href="index.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+        Tableau de bord
+      </a>
+      <a class="sidebar__nav-item" data-page="products.html" href="products.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
+        Produits
+      </a>
+      <a class="sidebar__nav-item" data-page="brochures.html" href="brochures.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+        Brochures
+      </a>
+      <a class="sidebar__nav-item" data-page="categories.html" href="categories.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+        Catégories
+      </a>
+      <a class="sidebar__nav-item" data-page="settings.html" href="settings.html">
+        <span class="sidebar__nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+        Paramètres
+      </a>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="sidebar__avatar">A</div>
+        <div class="sidebar__user-info">
+          <div class="sidebar__user-name">Administrateur</div>
+          <div class="sidebar__user-role">LV1 Health Tech</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+    <header class="topbar">
+      <span class="topbar__title" id="pageTitle">Nouveau produit</span>
+      <div class="topbar__right">
+        <a href="products.html" class="btn btn--ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Retour
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <form id="productForm" novalidate>
+        <div class="form-layout">
+
+          <!-- Left: main fields -->
+          <div>
+
+            <!-- Multilingual names -->
+            <div class="form-card mb-16">
+              <div class="form-card__header">
+                <span class="form-card__title">Nom du produit</span>
+              </div>
+              <div class="form-card__body">
+                <div class="lang-tabs">
+                  <div class="lang-tab active" data-lang="fr">🇫🇷 Français</div>
+                  <div class="lang-tab" data-lang="ar">🇹🇳 العربية</div>
+                  <div class="lang-tab" data-lang="en">🇬🇧 English</div>
+                </div>
+
+                <div class="lang-panel active" id="panel-fr">
+                  <div class="form-field">
+                    <label class="form-label" for="nameFR">Nom (FR) <span class="req">*</span></label>
+                    <input class="form-input" type="text" id="nameFR" placeholder="Ex : Clarius L7 HD3" required>
+                    <span class="form-error">Ce champ est obligatoire.</span>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="descFR">Description (FR)</label>
+                    <textarea class="form-textarea" id="descFR" rows="4" placeholder="Description en français…"></textarea>
+                  </div>
+                </div>
+
+                <div class="lang-panel" id="panel-ar">
+                  <div class="form-field">
+                    <label class="form-label" for="nameAR">الاسم (AR)</label>
+                    <input class="form-input" type="text" id="nameAR" placeholder="مثال: كلاريوس L7 HD3" dir="rtl">
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="descAR">الوصف (AR)</label>
+                    <textarea class="form-textarea" id="descAR" rows="4" placeholder="الوصف بالعربية…" dir="rtl"></textarea>
+                  </div>
+                </div>
+
+                <div class="lang-panel" id="panel-en">
+                  <div class="form-field">
+                    <label class="form-label" for="nameEN">Name (EN)</label>
+                    <input class="form-input" type="text" id="nameEN" placeholder="Ex: Clarius L7 HD3">
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="descEN">Description (EN)</label>
+                    <textarea class="form-textarea" id="descEN" rows="4" placeholder="Description in English…"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="form-card mb-16">
+              <div class="form-card__header">
+                <span class="form-card__title">Détails produit</span>
+              </div>
+              <div class="form-card__body">
+                <div class="form-row">
+                  <div class="form-field">
+                    <label class="form-label" for="subtitle">Sous-titre</label>
+                    <input class="form-input" type="text" id="subtitle" placeholder="Ex : Sonde Linéaire MSK">
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="model">Référence modèle</label>
+                    <input class="form-input" type="text" id="model" placeholder="Ex : HD3-L7">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-field">
+                    <label class="form-label" for="category">Catégorie</label>
+                    <select class="form-select" id="category">
+                      <option value="">— Choisir —</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="brochureId">Brochure liée</label>
+                    <select class="form-select" id="brochureId">
+                      <option value="">— Aucune —</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Specs -->
+            <div class="form-card mb-16">
+              <div class="form-card__header">
+                <span class="form-card__title">Spécifications techniques</span>
+                <button type="button" class="btn btn--ghost btn--sm" id="addSpec">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Ajouter
+                </button>
+              </div>
+              <div class="form-card__body">
+                <div class="specs-list" id="specsList"></div>
+                <p id="specsEmpty" style="font-size:0.78rem;color:var(--text-m);padding:8px 0;">Aucune spécification. Cliquez sur "Ajouter" pour commencer.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: image + status -->
+          <div class="gap-col">
+
+            <!-- Image -->
+            <div class="form-card">
+              <div class="form-card__header">
+                <span class="form-card__title">Image produit</span>
+              </div>
+              <div class="form-card__body">
+                <div class="img-upload" id="imgUpload">
+                  <input type="file" id="imgFile" accept="image/*">
+                  <div id="imgPlaceholder">
+                    <div class="img-upload__icon">🖼️</div>
+                    <div class="img-upload__text">Cliquez ou glissez une image</div>
+                    <div class="img-upload__hint">JPG, PNG, WEBP — max 4 Mo</div>
+                  </div>
+                </div>
+                <img class="img-preview" id="imgPreview" alt="Aperçu">
+                <div style="margin-top:10px;">
+                  <label class="form-label" for="imgUrl">Ou URL externe</label>
+                  <input class="form-input" type="url" id="imgUrl" placeholder="https://…" style="margin-top:6px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Status toggles -->
+            <div class="form-card">
+              <div class="form-card__header">
+                <span class="form-card__title">Publication</span>
+              </div>
+              <div class="form-card__body">
+                <div class="toggle-field">
+                  <div>
+                    <div class="toggle-field__label">Publié</div>
+                    <div class="toggle-field__hint">Visible sur le site public</div>
+                  </div>
+                  <label class="toggle">
+                    <input type="checkbox" id="published" checked>
+                    <span class="toggle__track"></span>
+                  </label>
+                </div>
+                <div class="toggle-field">
+                  <div>
+                    <div class="toggle-field__label">En vedette</div>
+                    <div class="toggle-field__hint">Mis en avant sur la page d'accueil</div>
+                  </div>
+                  <label class="toggle">
+                    <input type="checkbox" id="featured">
+                    <span class="toggle__track"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save -->
+            <div class="form-card">
+              <div class="form-card__body">
+                <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Enregistrer le produit
+                </button>
+                <button type="button" id="deleteProductBtn" class="btn btn--danger-ghost" style="width:100%;justify-content:center;margin-top:8px;display:none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                  Supprimer ce produit
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+
+<script>
+setSidebarActive('products.html');
+wireLogout();
+
+const params = new URLSearchParams(location.search);
+const editId = params.get('id');
+let product  = editId ? Products.get(editId) : null;
+
+/* Update page title */
+document.getElementById('pageTitle').textContent = product ? 'Modifier le produit' : 'Nouveau produit';
+if (product) document.title = `Modifier "${product.nameFR}" — LV1 Admin`;
+
+/* Populate category select */
+const catSel = document.getElementById('category');
+Categories.all().forEach(c => {
+  const o = document.createElement('option');
+  o.value = c.id;
+  o.textContent = `${c.icon || ''} ${c.nameFR}`;
+  catSel.appendChild(o);
+});
+
+/* Populate brochure select */
+const brSel = document.getElementById('brochureId');
+Brochures.all().forEach(b => {
+  const o = document.createElement('option');
+  o.value = b.id;
+  o.textContent = b.titleFR;
+  brSel.appendChild(o);
+});
+
+/* Language tabs */
+document.querySelectorAll('.lang-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.lang).classList.add('active');
+  });
+});
+
+/* Image upload */
+const imgFile    = document.getElementById('imgFile');
+const imgPreview = document.getElementById('imgPreview');
+const imgUrl     = document.getElementById('imgUrl');
+
+function showPreview(src) {
+  imgPreview.src = src;
+  imgPreview.classList.add('visible');
+  document.getElementById('imgPlaceholder').style.display = 'none';
+}
+imgFile.addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => { imgUrl.value = ''; showPreview(e.target.result); };
+  reader.readAsDataURL(file);
+});
+imgUrl.addEventListener('blur', function() {
+  if (this.value.trim()) showPreview(this.value.trim());
+});
+
+/* Specs builder */
+let specs = [];
+
+function renderSpecs() {
+  const list  = document.getElementById('specsList');
+  const empty = document.getElementById('specsEmpty');
+  empty.style.display = specs.length ? 'none' : 'block';
+  list.innerHTML = specs.map((s, i) => `
+    <div class="spec-row">
+      <input class="form-input" type="text" placeholder="Propriété" value="${s.key}" data-idx="${i}" data-field="key">
+      <input class="form-input" type="text" placeholder="Valeur" value="${s.val}" data-idx="${i}" data-field="val">
+      <button type="button" class="btn btn--danger-ghost btn--icon" data-remove="${i}" title="Retirer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+document.getElementById('addSpec').addEventListener('click', () => {
+  specs.push({ key: '', val: '' });
+  renderSpecs();
+  const inputs = document.getElementById('specsList').querySelectorAll('input');
+  if (inputs.length) inputs[inputs.length - 2].focus();
+});
+
+document.getElementById('specsList').addEventListener('input', e => {
+  const el = e.target;
+  if (!el.dataset.idx) return;
+  specs[+el.dataset.idx][el.dataset.field] = el.value;
+});
+document.getElementById('specsList').addEventListener('click', e => {
+  const btn = e.target.closest('[data-remove]');
+  if (!btn) return;
+  specs.splice(+btn.dataset.remove, 1);
+  renderSpecs();
+});
+
+/* Pre-fill if editing */
+if (product) {
+  document.getElementById('nameFR').value     = product.nameFR  || '';
+  document.getElementById('nameAR').value     = product.nameAR  || '';
+  document.getElementById('nameEN').value     = product.nameEN  || '';
+  document.getElementById('descFR').value     = product.descFR  || '';
+  document.getElementById('descAR').value     = product.descAR  || '';
+  document.getElementById('descEN').value     = product.descEN  || '';
+  document.getElementById('subtitle').value   = product.subtitle || '';
+  document.getElementById('model').value      = product.model   || '';
+  document.getElementById('category').value   = product.category || '';
+  document.getElementById('brochureId').value = product.brochureId || '';
+  document.getElementById('published').checked = !!product.published;
+  document.getElementById('featured').checked  = !!product.featured;
+
+  if (product.image) showPreview(product.image);
+  specs = product.specs ? JSON.parse(JSON.stringify(product.specs)) : [];
+  renderSpecs();
+
+  document.getElementById('deleteProductBtn').style.display = 'flex';
+} else {
+  renderSpecs();
+}
+
+/* Delete */
+document.getElementById('deleteProductBtn').addEventListener('click', async () => {
+  if (!product) return;
+  const ok = await Modal.confirm(`Supprimer le produit "<strong>${product.nameFR}</strong>" ? Cette action est irréversible.`);
+  if (!ok) return;
+  Products.delete(product.id);
+  Toast.success(`Produit supprimé.`);
+  setTimeout(() => { window.location.href = 'products.html'; }, 900);
+});
+
+/* Validation helper */
+function required(id) {
+  const el = document.getElementById(id);
+  const val = el.value.trim();
+  const field = el.closest('.form-field');
+  if (!val) {
+    field && field.classList.add('has-error');
+    el.classList.add('error');
+    return false;
+  }
+  field && field.classList.remove('has-error');
+  el.classList.remove('error');
+  return true;
+}
+
+/* Submit */
+document.getElementById('productForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  if (!required('nameFR')) {
+    /* Switch to FR tab if not already */
+    document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('[data-lang="fr"]').classList.add('active');
+    document.getElementById('panel-fr').classList.add('active');
+    Toast.error('Le nom en français est obligatoire.');
+    return;
+  }
+
+  const imgSrc = imgPreview.src && imgPreview.classList.contains('visible')
+    ? imgPreview.src
+    : (imgUrl.value.trim() || '');
+
+  const data = {
+    id:          editId || undefined,
+    nameFR:      document.getElementById('nameFR').value.trim(),
+    nameAR:      document.getElementById('nameAR').value.trim(),
+    nameEN:      document.getElementById('nameEN').value.trim(),
+    subtitle:    document.getElementById('subtitle').value.trim(),
+    model:       document.getElementById('model').value.trim(),
+    category:    document.getElementById('category').value,
+    brochureId:  document.getElementById('brochureId').value,
+    descFR:      document.getElementById('descFR').value.trim(),
+    descAR:      document.getElementById('descAR').value.trim(),
+    descEN:      document.getElementById('descEN').value.trim(),
+    published:   document.getElementById('published').checked,
+    featured:    document.getElementById('featured').checked,
+    image:       imgSrc,
+    specs:       specs.filter(s => s.key || s.val),
+    createdAt:   product ? product.createdAt : undefined
+  };
+
+  const saved = Products.save(data);
+  Toast.success(editId ? 'Produit mis à jour !' : 'Produit créé avec succès !');
+  setTimeout(() => { window.location.href = 'products.html'; }, 900);
+});
+</script>
+</body>
+</html>

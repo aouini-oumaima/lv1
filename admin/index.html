@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord — LV1 Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+
+<div class="admin-layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-mark">LV1</div>
+      <div class="sidebar__logo-text">
+        <div class="sidebar__logo-name">LV1 <span>Health</span></div>
+        <div class="sidebar__logo-sub">Admin</div>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="sidebar__nav-item" data-page="index.html" href="index.html">
+        <span class="sidebar__nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </span>
+        Tableau de bord
+      </a>
+      <a class="sidebar__nav-item" data-page="products.html" href="products.html">
+        <span class="sidebar__nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </span>
+        Produits
+      </a>
+      <a class="sidebar__nav-item" data-page="brochures.html" href="brochures.html">
+        <span class="sidebar__nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </span>
+        Brochures
+      </a>
+      <a class="sidebar__nav-item" data-page="categories.html" href="categories.html">
+        <span class="sidebar__nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </span>
+        Catégories
+      </a>
+      <a class="sidebar__nav-item" data-page="settings.html" href="settings.html">
+        <span class="sidebar__nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </span>
+        Paramètres
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="sidebar__avatar">A</div>
+        <div class="sidebar__user-info">
+          <div class="sidebar__user-name">Administrateur</div>
+          <div class="sidebar__user-role">LV1 Health Tech</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="admin-main">
+    <header class="topbar">
+      <span class="topbar__title">Tableau de bord</span>
+      <div class="topbar__right">
+        <a href="../societe.html" target="_blank" class="topbar__site-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Voir le site
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+
+      <!-- Stats -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--blue">📦</div>
+          <div class="stat-card__body">
+            <div class="stat-card__value" id="statProducts">—</div>
+            <div class="stat-card__label">Produits</div>
+            <div class="stat-card__sub" id="statFeatured"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--orange">📚</div>
+          <div class="stat-card__body">
+            <div class="stat-card__value" id="statBrochures">—</div>
+            <div class="stat-card__label">Brochures</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--green">🏷️</div>
+          <div class="stat-card__body">
+            <div class="stat-card__value" id="statCats">—</div>
+            <div class="stat-card__label">Catégories</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--purple">⭐</div>
+          <div class="stat-card__body">
+            <div class="stat-card__value" id="statPublished">—</div>
+            <div class="stat-card__label">Publiés</div>
+            <div class="stat-card__sub" id="statFeaturedPubs"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main grid -->
+      <div class="dash-grid">
+
+        <!-- Recent activity -->
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title">Activité récente</span>
+            <span class="badge badge--info" id="activityCount">—</span>
+          </div>
+          <div class="card__body">
+            <ul class="activity-list" id="activityList"></ul>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="gap-col">
+
+          <!-- Quick actions -->
+          <div class="card">
+            <div class="card__header">
+              <span class="card__title">Actions rapides</span>
+            </div>
+            <div class="card__body">
+              <div class="quick-actions">
+                <a href="product-form.html" class="quick-action">
+                  <span class="quick-action__icon">📦</span>
+                  Nouveau produit
+                </a>
+                <a href="brochure-form.html" class="quick-action">
+                  <span class="quick-action__icon">📚</span>
+                  Nouvelle brochure
+                </a>
+                <a href="categories.html" class="quick-action">
+                  <span class="quick-action__icon">🏷️</span>
+                  Catégories
+                </a>
+                <a href="settings.html" class="quick-action">
+                  <span class="quick-action__icon">⚙️</span>
+                  Paramètres
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent products -->
+          <div class="card">
+            <div class="card__header">
+              <span class="card__title">Derniers produits</span>
+              <a href="products.html" class="btn btn--ghost btn--sm">Voir tout</a>
+            </div>
+            <div class="card__body">
+              <ul class="activity-list" id="recentProducts"></ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+setSidebarActive('index.html');
+wireLogout();
+
+/* ── Render stats ── */
+(function() {
+  const products  = Products.all();
+  const brochures = Brochures.all();
+  const cats      = Categories.all();
+  const featured  = products.filter(p => p.featured).length;
+  const published = products.filter(p => p.published).length;
+
+  document.getElementById('statProducts').textContent  = products.length;
+  document.getElementById('statBrochures').textContent = brochures.length;
+  document.getElementById('statCats').textContent      = cats.length;
+  document.getElementById('statPublished').textContent = published;
+  document.getElementById('statFeatured').textContent  = featured + ' en vedette';
+  document.getElementById('statFeaturedPubs').textContent = Math.round(published / Math.max(products.length,1) * 100) + '% du catalogue';
+})();
+
+/* ── Render activity ── */
+(function() {
+  const acts = Activity.all();
+  document.getElementById('activityCount').textContent = acts.length + ' entrées';
+  const list = document.getElementById('activityList');
+  if (!acts.length) {
+    list.innerHTML = '<li style="padding:24px;text-align:center;color:var(--text-m);font-size:0.8rem;">Aucune activité pour l\'instant.</li>';
+    return;
+  }
+  list.innerHTML = acts.slice(0, 10).map(a => `
+    <li class="activity-item">
+      <div class="activity-icon">${a.icon}</div>
+      <div class="activity-body">
+        <div class="activity-msg">${a.message}</div>
+        <div class="activity-time">${fmtRelative(a.at)}</div>
+      </div>
+    </li>
+  `).join('');
+})();
+
+/* ── Recent products ── */
+(function() {
+  const prods = Products.all().slice(0, 4);
+  const cats  = {};
+  Categories.all().forEach(c => cats[c.id] = c.nameFR);
+  const list  = document.getElementById('recentProducts');
+  if (!prods.length) {
+    list.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-m);font-size:0.8rem;">Aucun produit.</li>';
+    return;
+  }
+  list.innerHTML = prods.map(p => `
+    <li class="activity-item">
+      ${p.image
+        ? `<img class="tbl-img" src="${p.image}" alt="" style="border-radius:8px;width:38px;height:38px;object-fit:cover;flex-shrink:0;">`
+        : `<div class="tbl-img-placeholder">📦</div>`}
+      <div class="activity-body">
+        <div class="activity-msg">${p.nameFR}</div>
+        <div class="activity-time">${cats[p.category] || '—'} · ${fmtDate(p.createdAt)}</div>
+      </div>
+      <a href="product-form.html?id=${p.id}" class="btn btn--ghost btn--xs">Modifier</a>
+    </li>
+  `).join('');
+})();
+</script>
+</body>
+</html>
